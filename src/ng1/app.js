@@ -43,7 +43,7 @@ angular.module('app').config(appConfig);
 
 angular.module('app').run(appRun);
 
-// ng1 app bootstrap will be handled by UpgradeModule in app.module.ts
+// NOTE: ng1 app bootstrap will be handled by UpgradeModule in app.module.ts
 // angular.bootstrap(document, ['app'], {
 //   strictDi: true
 // });

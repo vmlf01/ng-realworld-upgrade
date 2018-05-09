@@ -9,7 +9,10 @@ function HomeConfig($stateProvider) {
     // controller: 'HomeCtrl',
     // controllerAs: '$ctrl',
     // templateUrl: 'home/home.html',
-    template: '<app-home></app-home>',
+    // template: '<app-home></app-home>',
+
+    // NOTE: Used to clear out ui-view when the angular router is activated for this route
+    template: '',
     title: 'Home'
   });
 
