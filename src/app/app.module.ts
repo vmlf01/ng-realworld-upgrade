@@ -1,10 +1,13 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 
-// IMPORTANT: import ng1 bundle before importing UpgradeModule,
+// IMPORTANT: import upgrade stuff before importing UpgradeModule,
 // so AngularJS loads before UpgradeModule
-import '../main.ng1';
-import { UpgradeModule } from '@angular/upgrade/static';
+import { downgradeAppComponents, UpgradedAppProviders } from '../upgrade';
+import { UpgradeModule, downgradeInjectable, downgradeComponent } from '@angular/upgrade/static';
+
+import { TagsService } from './tags.service';
 
 const ng1AppName = 'app';
 
@@ -15,9 +18,13 @@ const ng1AppName = 'app';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     UpgradeModule,
   ],
   providers: [
+    TagsService,
+    // Upgraded injectables AngularJS -> Angular
+    ...UpgradedAppProviders,
   ],
 })
 export class AppModule {
@@ -27,3 +34,6 @@ export class AppModule {
     this.ngUpgrade.bootstrap(document.body, [ng1AppName]);
   }
 }
+
+// Downgraded injectables Angular -> AngularJS
+downgradeAppComponents(ng1AppName);
