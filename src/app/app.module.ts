@@ -1,16 +1,29 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 
-import { AppComponent } from './app.component';
+// IMPORTANT: import ng1 bundle before importing UpgradeModule,
+// so AngularJS loads before UpgradeModule
+import '../main.ng1';
+import { UpgradeModule } from '@angular/upgrade/static';
+
+const ng1AppName = 'app';
 
 @NgModule({
   declarations: [
-    AppComponent
+  ],
+  entryComponents: [
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    UpgradeModule,
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+  ],
 })
-export class AppModule { }
+export class AppModule {
+  constructor(private ngUpgrade: UpgradeModule) { }
+
+  ngDoBootstrap() {
+    this.ngUpgrade.bootstrap(document.body, [ng1AppName]);
+  }
+}

@@ -37,3 +37,7 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+# ng1 build artifacts
+main.ng1.js
+app.templates.js
