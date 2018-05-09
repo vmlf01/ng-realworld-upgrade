@@ -7,14 +7,20 @@ import { HttpClientModule } from '@angular/common/http';
 import { downgradeAppComponents, UpgradedAppProviders } from '../upgrade';
 import { UpgradeModule, downgradeInjectable, downgradeComponent } from '@angular/upgrade/static';
 
+import { MessageBusService } from './message-bus.service';
 import { TagsService } from './tags.service';
+import { HomeComponent } from './home/home.component';
+import { ArticleListComponent } from './article-list/article-list.component';
 
 const ng1AppName = 'app';
 
 @NgModule({
   declarations: [
+    HomeComponent,
+    ArticleListComponent
   ],
   entryComponents: [
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
@@ -22,6 +28,7 @@ const ng1AppName = 'app';
     UpgradeModule,
   ],
   providers: [
+    MessageBusService,
     TagsService,
     // Upgraded injectables AngularJS -> Angular
     ...UpgradedAppProviders,

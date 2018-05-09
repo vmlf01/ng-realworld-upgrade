@@ -9,8 +9,9 @@ homeModule.config(HomeConfig);
 
 
 // Controllers
-import HomeCtrl from './home.controller';
-homeModule.controller('HomeCtrl', HomeCtrl);
+// NOTE: downgraded from home component in upgrade.ts
+// import HomeCtrl from './home.controller';
+// homeModule.controller('HomeCtrl', HomeCtrl);
 
 
 export default homeModule;
