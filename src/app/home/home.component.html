@@ -19,7 +19,7 @@
 
             <li class="nav-item" show-authed="true">
               <a href="" class="nav-link"
-                [ngClass]="{ active: listConfig.type === 'feed' }"
+                [class.active]="listConfig.type === 'feed'"
                 (click)="changeList({ type: 'feed' })">
                 Your Feed
               </a>
@@ -27,7 +27,7 @@
 
             <li class="nav-item">
               <a href="" class="nav-link"
-                [ngClass]="{ active: listConfig.type === 'all' && !listConfig.filters }"
+                [class.active]="listConfig.type === 'all' && !listConfig.filters"
                 (click)="changeList({ type: 'all' })">
                 Global Feed
               </a>

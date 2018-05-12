@@ -4,9 +4,6 @@ class ArticleListCtrl {
 
     this._Articles = Articles;
 
-    this.setListTo(this.listConfig);
-
-
     $scope.$on('setListTo', (ev, newList) => {
       this.setListTo(newList);
     });
@@ -17,11 +14,15 @@ class ArticleListCtrl {
 
   }
 
+  $onInit() {
+    this.setListTo(this.listConfig);
+  }
+
   setListTo(newList) {
     // Set the current list to an empty array
     this.list = [];
 
-    // Set listConfig to the new list's config
+    // Set listConfig to the new list's carticle-listarticle-listarticle-listarticle-listonfig
     this.listConfig = newList;
 
     this.runQuery();

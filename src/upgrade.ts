@@ -4,32 +4,44 @@ import './main.ng1';
 
 import { downgradeInjectable, downgradeComponent } from '@angular/upgrade/static';
 
-import { TagsService } from './app/tags.service';
+import { appConstants } from './environments/environment';
+
+import { ArticlesService } from './app/services/articles.service';
+import { CommentsService } from './app/services/comments.service';
+import { JWTService } from './app/services/jwt.service';
+import { ProfileService } from './app/services/profile.service';
+import { TagsService } from './app/services/tags.service';
+
 import { HomeComponent } from './app/home/home.component';
+import { UserService } from './app/services/user.service';
 
 function injectorFactory(name) {
   return $injector => $injector.get(name);
 }
 
-export const JWTFactory = injectorFactory('JWT');
-export const AppConstantsFactory = injectorFactory('AppConstants');
 export const UserFactory = injectorFactory('User');
 export const $rootScopeFactory = injectorFactory('$rootScope');
 export const $scopeFactory = ($injector) => $injector.get('$rootScope').$new();
+export const $stateFactory = injectorFactory('$state');
 
 // Upgraded injectables AngularJS -> Angular
 export const UpgradedAppProviders = [
-  { provide: 'JWT', useFactory: JWTFactory, deps: ['$injector'] },
-  { provide: 'AppConstants', useFactory: AppConstantsFactory, deps: ['$injector'] },
   { provide: 'User', useFactory: UserFactory, deps: ['$injector'] },
   { provide: '$rootScope', useFactory: $rootScopeFactory, deps: ['$injector'] },
   { provide: '$scope', useFactory: $scopeFactory, deps: ['$injector'] },
+  { provide: '$state', useFactory: $stateFactory, deps: ['$injector'] },
 ];
 
 // Downgraded injectables Angular -> AngularJS
 declare var angular: any;
 export function downgradeAppComponents(appName) {
   const ng1App = angular.module(appName);
+  ng1App.constant('AppConstants', appConstants);
+  ng1App.factory('Articles', downgradeInjectable(ArticlesService));
+  ng1App.factory('Comments', downgradeInjectable(CommentsService));
+  ng1App.factory('JWT', downgradeInjectable(JWTService));
+  ng1App.factory('Profile', downgradeInjectable(ProfileService));
   ng1App.factory('Tags', downgradeInjectable(TagsService));
+  ng1App.factory('User', downgradeInjectable(UserService));
   ng1App.directive('appHome', downgradeComponent({ component: HomeComponent }));
 }

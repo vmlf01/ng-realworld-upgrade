@@ -1,4 +1,4 @@
-function AuthConfig($stateProvider, $httpProvider) {
+function AuthConfig($stateProvider) {
   'ngInject';
 
   $stateProvider

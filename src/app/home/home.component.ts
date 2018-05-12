@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { TagsService } from '../tags.service';
-import { MessageBusService } from '../message-bus.service';
+import { TagsService } from '../services/tags.service';
+import { MessageBusService } from '../services/message-bus.service';
+import { AppConstants } from '../app.constants';
 
 @Component({
   selector: 'app-home',
@@ -21,7 +22,7 @@ export class HomeComponent implements OnInit {
   constructor(
     @Inject('User') private User: any,
     private Tags: TagsService,
-    @Inject('AppConstants') private AppConstants: any,
+    private AppConstants: AppConstants,
     private MessageBusService: MessageBusService,
   ) { }
 

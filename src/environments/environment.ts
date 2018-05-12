@@ -6,6 +6,13 @@ export const environment = {
   production: false
 };
 
+export const appConstants = {
+  api: 'https://conduit.productionready.io/api',
+  // api: 'http://localhost:3000/api',
+  jwtKey: 'jwtToken',
+  appName: 'Conduit',
+};
+
 /*
  * In development mode, to ignore zone related error stack frames such as
  * `zone.run`, `zoneDelegate.invokeTask` for easier debugging, you can

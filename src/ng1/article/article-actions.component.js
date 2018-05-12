@@ -4,13 +4,15 @@ class ArticleActionsCtrl {
 
     this._Articles = Articles;
     this._$state = $state;
+    this._User = User;
+  }
 
-    if (User.current) {
-      this.canModify = (User.current.username === this.article.author.username);
+  $onInit() {
+    if (this._User.current) {
+      this.canModify = (this._User.current.username === this.article.author.username);
     } else {
       this.canModify = false;
     }
-
   }
 
   deleteArticle() {
