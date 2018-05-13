@@ -28,6 +28,7 @@ import { ProfileService } from './services/profile.service';
 import { first } from 'rxjs/operators';
 import { TokenInterceptor } from './auth.interceptor';
 import { UserService } from './services/user.service';
+import { ShowAuthedDirective } from './show-authed/show-authed.directive';
 
 const ng1AppName = 'app';
 declare var angular: any;
@@ -40,6 +41,7 @@ downgradeAppComponents(ng1AppName);
     AppRootComponent,
     HomeComponent,
     ArticleListComponent,
+    ShowAuthedDirective,
   ],
   entryComponents: [
     AppRootComponent,

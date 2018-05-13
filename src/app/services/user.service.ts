@@ -1,6 +1,6 @@
 import { Injectable, InjectionToken, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { of } from 'rxjs';
+import { of, BehaviorSubject } from 'rxjs';
 import { map, tap, catchError } from 'rxjs/operators';
 
 import { AppConstants } from '../app.constants';
@@ -10,7 +10,13 @@ import { JWTService } from './jwt.service';
     providedIn: 'root'
 })
 export class UserService {
-    current: any = null;
+    private _current = new BehaviorSubject(null);
+
+    public readonly CurrentUser = this._current.asObservable();
+
+    public get current() {
+        return this._current.getValue();
+    }
 
     constructor(
         private JWT: JWTService,
@@ -27,7 +33,7 @@ export class UserService {
         return this.HttpClient.post<any>(`${this.AppConstants.api}/users${route}`, { user: credentials })
             .pipe(tap(res => {
                 this.JWT.save(res.user.token);
-                this.current = res.user;
+                this._current.next(res.user);
             }))
             .toPromise();
     }
@@ -35,14 +41,14 @@ export class UserService {
     update(fields) {
         return this.HttpClient.put<any>(this.AppConstants.api + '/user', { user: fields })
             .pipe(
-                tap(res => this.current = res.user),
+                tap(res => this._current.next(res.user)),
                 map(res => res.user)
             )
             .toPromise();
     }
 
     logout(): void {
-        this.current = null;
+        this._current.next(null);
         this.JWT.destroy();
         this.$state.go(this.$state.$current, null, { reload: true });
     }
@@ -54,7 +60,7 @@ export class UserService {
             return Promise.resolve(false);
         }
 
-        if (this.current) {
+        if (this._current.getValue()) {
             return Promise.resolve(true);
         }
         else {
@@ -63,7 +69,7 @@ export class UserService {
             }
             return this.HttpClient.get<any>(this.AppConstants.api + '/user', { headers })
                 .pipe(
-                    tap(res => this.current = res.user),
+                    tap(res => this._current.next(res.user)),
                     map(() => true),
                     catchError(() => {
                         this.JWT.destroy();
