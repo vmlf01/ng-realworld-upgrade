@@ -23,12 +23,12 @@ import { ArticlesService } from './services/articles.service';
 
 import { AppRootComponent } from './appRoot.component';
 import { HomeComponent } from './home/home.component';
-import { ArticleListComponent } from './article-list/article-list.component';
 import { ProfileService } from './services/profile.service';
 import { first } from 'rxjs/operators';
 import { TokenInterceptor } from './auth.interceptor';
 import { UserService } from './services/user.service';
 import { ShowAuthedDirective } from './show-authed/show-authed.directive';
+import { ArticlesModule } from './articles/articles.module';
 
 const ng1AppName = 'app';
 declare var angular: any;
@@ -40,7 +40,6 @@ downgradeAppComponents(ng1AppName);
   declarations: [
     AppRootComponent,
     HomeComponent,
-    ArticleListComponent,
     ShowAuthedDirective,
   ],
   entryComponents: [
@@ -52,6 +51,7 @@ downgradeAppComponents(ng1AppName);
     HttpClientModule,
     RouterModule.forRoot(appRoutes),
     UpgradeModule,
+    ArticlesModule,
   ],
   providers: [
     // NOTE: setup which routes should be handled by Angular

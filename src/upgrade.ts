@@ -11,9 +11,10 @@ import { CommentsService } from './app/services/comments.service';
 import { JWTService } from './app/services/jwt.service';
 import { ProfileService } from './app/services/profile.service';
 import { TagsService } from './app/services/tags.service';
-
-import { HomeComponent } from './app/home/home.component';
 import { UserService } from './app/services/user.service';
+
+import { ArticleMetaComponent } from './app/articles/article-meta/article-meta.component';
+import { HomeComponent } from './app/home/home.component';
 
 function injectorFactory(name) {
   return $injector => $injector.get(name);
@@ -44,4 +45,5 @@ export function downgradeAppComponents(appName) {
   ng1App.factory('Tags', downgradeInjectable(TagsService));
   ng1App.factory('User', downgradeInjectable(UserService));
   ng1App.directive('appHome', downgradeComponent({ component: HomeComponent }));
+  ng1App.directive('articleMeta', downgradeComponent({ component: ArticleMetaComponent }));
 }

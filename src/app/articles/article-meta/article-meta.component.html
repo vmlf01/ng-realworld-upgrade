@@ -1,0 +1,20 @@
+<div class="article-meta">
+  <!-- <a ui-sref="app.profile.main({ username:$ctrl.article.author.username })"> -->
+  <a>
+    <img [src]="article.author.image" />
+  </a>
+
+  <div class="info">
+    <!-- ui-sref="app.profile.main({ username:$ctrl.article.author.username })" -->
+    <a
+      class="author"
+    >
+      {{ article.author.username }}
+    </a>
+    <span class="date">
+      {{ article.createdAt | date:'longDate' }}
+    </span>
+  </div>
+
+  <ng-content></ng-content>
+</div>
