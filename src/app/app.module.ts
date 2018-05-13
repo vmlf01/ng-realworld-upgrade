@@ -20,7 +20,6 @@ import { ArticlesService } from './services/articles.service';
 import { AppRootComponent } from './appRoot.component';
 import { HomeComponent } from './home/home.component';
 import { ProfileService } from './services/profile.service';
-import { first } from 'rxjs/operators';
 import { ArticlesModule } from './articles/articles.module';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';

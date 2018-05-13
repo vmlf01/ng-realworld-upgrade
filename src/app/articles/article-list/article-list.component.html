@@ -1,0 +1,24 @@
+<rw-article-preview
+  *ngFor="let article of list"
+  [article]="article"
+></rw-article-preview>
+
+<div
+  class="article-preview"
+  *ngIf="loading"
+>
+  Loading articles...
+</div>
+
+<div
+  class="article-preview"
+  *ngIf="!loading && !list.length"
+>
+  No articles are here... yet.
+</div>
+
+<rw-list-pagination
+  [totalPages]="listConfig.totalPages"
+  [currentPage]="listConfig.currentPage"
+  *ngIf="listConfig.totalPages > 1"
+></rw-list-pagination>

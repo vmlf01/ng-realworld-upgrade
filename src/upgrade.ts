@@ -21,14 +21,12 @@ function injectorFactory(name) {
   return $injector => $injector.get(name);
 }
 
-export const UserFactory = injectorFactory('User');
 export const $rootScopeFactory = injectorFactory('$rootScope');
 export const $scopeFactory = ($injector) => $injector.get('$rootScope').$new();
 export const $stateFactory = injectorFactory('$state');
 
 // Upgraded injectables AngularJS -> Angular
 export const UpgradedAppProviders = [
-  { provide: 'User', useFactory: UserFactory, deps: ['$injector'] },
   { provide: '$rootScope', useFactory: $rootScopeFactory, deps: ['$injector'] },
   { provide: '$scope', useFactory: $scopeFactory, deps: ['$injector'] },
   { provide: '$state', useFactory: $stateFactory, deps: ['$injector'] },
@@ -44,7 +42,6 @@ export function downgradeAppComponents(appName) {
   ng1App.factory('Profile', downgradeInjectable(ProfileService));
   ng1App.factory('Tags', downgradeInjectable(TagsService));
   ng1App.factory('User', downgradeInjectable(UserService));
-  ng1App.directive('appHome', downgradeComponent({ component: HomeComponent }));
   ng1App.directive('articleMeta', downgradeComponent({ component: ArticleMetaComponent }));
   ng1App.directive('favoriteBtn', downgradeComponent({ component: FavoriteBtnComponent }));
   ng1App.directive('followBtn', downgradeComponent({ component: FollowBtnComponent }));

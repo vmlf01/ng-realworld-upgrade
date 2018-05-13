@@ -2,6 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { TagsService } from '../services/tags.service';
 import { MessageBusService } from '../core/message-bus.service';
 import { AppConstants } from '../core/app.constants';
+import { UserService } from '../core/user.service';
 
 @Component({
   selector: 'rw-home',
@@ -20,15 +21,15 @@ export class HomeComponent implements OnInit {
   };
 
   constructor(
-    @Inject('User') private User: any,
+    private User: UserService,
     private Tags: TagsService,
     private appConstants: AppConstants,
     private MessageBus: MessageBusService
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
     this.appName = this.appConstants.appName;
-
     // Get list of all tags
     this.Tags
       .getAll()
