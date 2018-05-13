@@ -2,7 +2,7 @@ import { Injectable, InjectionToken, Inject } from '@angular/core';
 import { StorageService } from './storage.service';
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: 'root',
 })
 export class LocalStorageService implements StorageService {
     constructor(

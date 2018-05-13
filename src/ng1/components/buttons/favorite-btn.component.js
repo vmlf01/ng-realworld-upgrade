@@ -39,7 +39,7 @@ class FavoriteBtnCtrl {
 
 }
 
-let FavoriteBtn= {
+let FavoriteBtn = {
   bindings: {
     article: '='
   },

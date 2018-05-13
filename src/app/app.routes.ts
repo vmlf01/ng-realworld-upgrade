@@ -11,7 +11,7 @@ export class NgUpgradeHandlingStrategy implements UrlHandlingStrategy {
         // NOTE:
         // return true to let Angular router handle url
         // return false to let ng1 router handle url
-        return url.toString() === "/";
+        return url.toString() === '/';
     }
 
     extract(url) {

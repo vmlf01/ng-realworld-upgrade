@@ -3,8 +3,10 @@ import { UpgradeComponent } from '@angular/upgrade/static';
 
 // upgrade an ng1 component using an element @Directive
 @Directive({
-  selector: 'article-list',
+  // tslint:disable-next-line:directive-selector
+  selector: 'rw-article-list',
 })
+// tslint:disable-next-line:directive-class-suffix
 export class ArticleListComponent extends UpgradeComponent {
   @Input() limit: number;
   @Input() listConfig: any;

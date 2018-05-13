@@ -1,29 +1,28 @@
 import { Directive, OnInit, Input, ElementRef, OnDestroy } from '@angular/core';
-import { UserService } from '../services/user.service';
+import { UserService } from '../../core/user.service';
 import { Subscription } from 'rxjs';
 
 @Directive({
-  selector: '[showAuthed]'
+  selector: '[rwShowAuthed]',
 })
 export class ShowAuthedDirective implements OnInit, OnDestroy {
-  @Input() showAuthed: boolean;
+  // tslint:disable-next-line:no-input-rename
+  @Input('rwShowAuthed') showAuthed: boolean;
 
   userSubscription: Subscription;
 
   constructor(
-    private UserService: UserService,
+    private userService: UserService,
     private element: ElementRef
   ) { }
 
   ngOnInit() {
-    this.userSubscription = this.UserService.CurrentUser.subscribe(user => {
-      console.log('USER CHANGED', user);
+    this.userSubscription = this.userService.CurrentUser.subscribe(user => {
       if (user) {
         this.element.nativeElement.style.display = this.showAuthed
           ? 'inherit'
           : 'none';
-      }
-      else {
+      } else {
         this.element.nativeElement.style.display = this.showAuthed
           ? 'none'
           : 'inherit';
@@ -32,6 +31,8 @@ export class ShowAuthedDirective implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.userSubscription && this.userSubscription.unsubscribe();
+    if (this.userSubscription) {
+      this.userSubscription.unsubscribe();
+    }
   }
 }

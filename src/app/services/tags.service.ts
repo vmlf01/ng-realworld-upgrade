@@ -2,22 +2,20 @@ import { Injectable, InjectionToken, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { map } from 'rxjs/operators';
-import { JWTService } from './jwt.service';
-import { AppConstants } from '../app.constants';
+import { AppConstants } from '../core/app.constants';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TagsService {
 
   constructor(
-    private JWT: JWTService,
-    private AppConstants: AppConstants,
-    private HttpClient: HttpClient,
+    private appConstants: AppConstants,
+    private httpClient: HttpClient
   ) {}
 
   getAll() {
-    return this.HttpClient.get<any>(this.AppConstants.api + '/tags')
+    return this.httpClient.get<any>(this.appConstants.api + '/tags')
       .pipe(map(res => res.tags))
       .toPromise();
   }

@@ -10,25 +10,20 @@ import { downgradeAppComponents, UpgradedAppProviders } from '../upgrade';
 import { UpgradeModule, downgradeInjectable, downgradeComponent } from '@angular/upgrade/static';
 import { setUpLocationSync } from '@angular/router/upgrade';
 
-import { AppConstants } from './app.constants';
+import { AppConstants } from './core/app.constants';
 import { appRoutes, NgUpgradeHandlingStrategy } from './app.routes';
 
-import { MessageBusService } from './services/message-bus.service';
 import { TagsService } from './services/tags.service';
 import { CommentsService } from './services/comments.service';
-import { JWTService } from './services/jwt.service';
-import { LocalStorageService } from './services/local-storage.service';
-import { StorageService } from './services/storage.service';
 import { ArticlesService } from './services/articles.service';
 
 import { AppRootComponent } from './appRoot.component';
 import { HomeComponent } from './home/home.component';
 import { ProfileService } from './services/profile.service';
 import { first } from 'rxjs/operators';
-import { TokenInterceptor } from './auth.interceptor';
-import { UserService } from './services/user.service';
-import { ShowAuthedDirective } from './show-authed/show-authed.directive';
 import { ArticlesModule } from './articles/articles.module';
+import { CoreModule } from './core/core.module';
+import { SharedModule } from './shared/shared.module';
 
 const ng1AppName = 'app';
 declare var angular: any;
@@ -40,7 +35,6 @@ downgradeAppComponents(ng1AppName);
   declarations: [
     AppRootComponent,
     HomeComponent,
-    ShowAuthedDirective,
   ],
   entryComponents: [
     AppRootComponent,
@@ -51,24 +45,19 @@ downgradeAppComponents(ng1AppName);
     HttpClientModule,
     RouterModule.forRoot(appRoutes),
     UpgradeModule,
+    CoreModule,
+    SharedModule,
     ArticlesModule,
   ],
   providers: [
     // NOTE: setup which routes should be handled by Angular
     { provide: UrlHandlingStrategy, useClass: NgUpgradeHandlingStrategy },
-    // NOTE: setup HTTP auth interceptor
-    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
     // other app providers
     { provide: AppConstants, useValue: appConstants },
     ArticlesService,
     CommentsService,
-    JWTService,
-    { provide: 'localStorage', useValue: window.localStorage },
-    MessageBusService,
     ProfileService,
-    { provide: StorageService, useClass: LocalStorageService },
     TagsService,
-    UserService,
     // NOTE: Upgraded injectables AngularJS -> Angular
     ...UpgradedAppProviders,
   ],

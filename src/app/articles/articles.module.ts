@@ -6,7 +6,7 @@ import { ArticleMetaComponent } from './article-meta/article-meta.component';
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
   ],
   exports: [
     ArticleListComponent,
@@ -17,6 +17,6 @@ import { ArticleMetaComponent } from './article-meta/article-meta.component';
   ],
   entryComponents: [
     ArticleMetaComponent,
-  ]
+  ],
 })
 export class ArticlesModule { }

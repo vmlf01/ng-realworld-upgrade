@@ -8,10 +8,9 @@ import { appConstants } from './environments/environment';
 
 import { ArticlesService } from './app/services/articles.service';
 import { CommentsService } from './app/services/comments.service';
-import { JWTService } from './app/services/jwt.service';
 import { ProfileService } from './app/services/profile.service';
 import { TagsService } from './app/services/tags.service';
-import { UserService } from './app/services/user.service';
+import { UserService } from './app/core/user.service';
 
 import { ArticleMetaComponent } from './app/articles/article-meta/article-meta.component';
 import { HomeComponent } from './app/home/home.component';
@@ -40,7 +39,6 @@ export function downgradeAppComponents(appName) {
   ng1App.constant('AppConstants', appConstants);
   ng1App.factory('Articles', downgradeInjectable(ArticlesService));
   ng1App.factory('Comments', downgradeInjectable(CommentsService));
-  ng1App.factory('JWT', downgradeInjectable(JWTService));
   ng1App.factory('Profile', downgradeInjectable(ProfileService));
   ng1App.factory('Tags', downgradeInjectable(TagsService));
   ng1App.factory('User', downgradeInjectable(UserService));

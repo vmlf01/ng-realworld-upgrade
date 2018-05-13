@@ -3,11 +3,11 @@ import { HttpClient } from '@angular/common/http';
 import { of, BehaviorSubject } from 'rxjs';
 import { map, tap, catchError } from 'rxjs/operators';
 
-import { AppConstants } from '../app.constants';
+import { AppConstants } from './app.constants';
 import { JWTService } from './jwt.service';
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: 'root',
 })
 export class UserService {
     private _current = new BehaviorSubject(null);
@@ -20,8 +20,8 @@ export class UserService {
 
     constructor(
         private JWT: JWTService,
-        private AppConstants: AppConstants,
-        private HttpClient: HttpClient,
+        private appConstants: AppConstants,
+        private httpClient: HttpClient,
         @Inject('$state') private $state: any
     ) { }
 
@@ -30,7 +30,7 @@ export class UserService {
             ? '/login'
             : '';
 
-        return this.HttpClient.post<any>(`${this.AppConstants.api}/users${route}`, { user: credentials })
+        return this.httpClient.post<any>(`${this.appConstants.api}/users${route}`, { user: credentials })
             .pipe(tap(res => {
                 this.JWT.save(res.user.token);
                 this._current.next(res.user);
@@ -39,7 +39,7 @@ export class UserService {
     }
 
     update(fields) {
-        return this.HttpClient.put<any>(this.AppConstants.api + '/user', { user: fields })
+        return this.httpClient.put<any>(this.appConstants.api + '/user', { user: fields })
             .pipe(
                 tap(res => this._current.next(res.user)),
                 map(res => res.user)
@@ -62,12 +62,11 @@ export class UserService {
 
         if (this._current.getValue()) {
             return Promise.resolve(true);
-        }
-        else {
+        } else {
             const headers = {
-                Authorization: `Token ${jwtToken}`
-            }
-            return this.HttpClient.get<any>(this.AppConstants.api + '/user', { headers })
+                Authorization: `Token ${jwtToken}`,
+            };
+            return this.httpClient.get<any>(this.appConstants.api + '/user', { headers })
                 .pipe(
                     tap(res => this._current.next(res.user)),
                     map(() => true),

@@ -2,16 +2,16 @@ import { Injectable, InjectionToken, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 
-import { AppConstants } from '../app.constants';
+import { AppConstants } from '../core/app.constants';
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: 'root',
 })
 export class CommentsService {
 
     constructor(
-        private AppConstants: AppConstants,
-        private HttpClient: HttpClient,
+        private appConstants: AppConstants,
+        private httpClient: HttpClient
     ) { }
 
     // Add a comment to an article
@@ -19,23 +19,23 @@ export class CommentsService {
         const comment = {
             body: payload,
         };
-        return this.HttpClient.post<any>(this._getCommentsUrl(slug), comment)
+        return this.httpClient.post<any>(this._getCommentsUrl(slug), comment)
             .pipe(map(res => res.comment))
             .toPromise();
     }
 
     getAll(slug) {
-        return this.HttpClient.get<any>(this._getCommentsUrl(slug))
+        return this.httpClient.get<any>(this._getCommentsUrl(slug))
             .pipe(map(res => res.comments))
             .toPromise();
     }
 
     destroy(commentId, slug) {
-        return this.HttpClient.delete<any>(`${this._getCommentsUrl(slug)}/${commentId}`)
+        return this.httpClient.delete<any>(`${this._getCommentsUrl(slug)}/${commentId}`)
             .toPromise();
     }
 
     _getCommentsUrl(slug: string): string {
-        return `${this.AppConstants.api}/articles/${slug}/comments`;
+        return `${this.appConstants.api}/articles/${slug}/comments`;
     }
 }

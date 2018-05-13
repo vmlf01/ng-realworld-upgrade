@@ -7,29 +7,29 @@ import {
     HttpResponse,
     HttpErrorResponse
 } from '@angular/common/http';
+import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 
-import { JWTService } from './services/jwt.service';
+import { JWTService } from './jwt.service';
 import { AppConstants } from './app.constants';
-import { Router } from '@angular/router';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
     constructor(
-        private AppConstants: AppConstants,
-        private Router: Router,
+        private appConstants: AppConstants,
+        private router: Router,
         private JWT: JWTService
     ) { }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        const isApiRequest = request.url.indexOf(this.AppConstants.api) === 0;
+        const isApiRequest = request.url.indexOf(this.appConstants.api) === 0;
         const jwtToken = this.JWT.get();
         if (isApiRequest && jwtToken) {
             request = request.clone({
                 setHeaders: {
-                    Authorization: `Token ${jwtToken}`
-                }
+                    Authorization: `Token ${jwtToken}`,
+                },
             });
         }
 
