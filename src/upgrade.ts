@@ -14,6 +14,8 @@ import { UserService } from './app/core/user.service';
 
 import { ArticleMetaComponent } from './app/articles/article-meta/article-meta.component';
 import { HomeComponent } from './app/home/home.component';
+import { FavoriteBtnComponent } from './app/shared/favorite-btn/favorite-btn.component';
+import { FollowBtnComponent } from './app/shared/follow-btn/follow-btn.component';
 
 function injectorFactory(name) {
   return $injector => $injector.get(name);
@@ -44,4 +46,6 @@ export function downgradeAppComponents(appName) {
   ng1App.factory('User', downgradeInjectable(UserService));
   ng1App.directive('appHome', downgradeComponent({ component: HomeComponent }));
   ng1App.directive('articleMeta', downgradeComponent({ component: ArticleMetaComponent }));
+  ng1App.directive('favoriteBtn', downgradeComponent({ component: FavoriteBtnComponent }));
+  ng1App.directive('followBtn', downgradeComponent({ component: FollowBtnComponent }));
 }

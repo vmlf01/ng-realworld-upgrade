@@ -1,0 +1,9 @@
+<button
+  class="btn btn-sm"
+  [class.disabled]="isSubmitting"
+  [class.btn-outline-primary]="!article.favorited"
+  [class.btn-primary]="article.favorited"
+  (click)="submit()"
+>
+  <i class="ion-heart"></i> <ng-content></ng-content>
+</button>

@@ -1,0 +1,11 @@
+<button
+  class="btn btn-sm action-btn"
+  [class.disabled]="isSubmitting"
+  [class.btn-outline-secondary]="!user.following"
+  [class.btn-secondary]="user.following"
+  (click)="submit()"
+>
+  <i class="ion-plus-round"></i>
+  &nbsp;
+  {{ user.following ? 'Unfollow' : 'Follow' }} {{ user.username }}
+</button>
