@@ -6,11 +6,13 @@ import { ArticleMetaComponent } from './article-meta/article-meta.component';
 import { ArticlePreviewComponent } from './article-preview/article-preview.component';
 import { SharedModule } from '../shared/shared.module';
 import { CoreModule } from '../core/core.module';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   imports: [
     CommonModule,
     CoreModule,
+    RouterModule,
     SharedModule,
   ],
   exports: [

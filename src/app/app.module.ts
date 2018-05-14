@@ -23,6 +23,7 @@ import { ProfileService } from './services/profile.service';
 import { ArticlesModule } from './articles/articles.module';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
+import { EmptyComponent } from './empty/empty.component';
 
 const ng1AppName = 'app';
 declare var angular: any;
@@ -34,6 +35,7 @@ downgradeAppComponents(ng1AppName);
   declarations: [
     AppRootComponent,
     HomeComponent,
+    EmptyComponent,
   ],
   entryComponents: [
     AppRootComponent,

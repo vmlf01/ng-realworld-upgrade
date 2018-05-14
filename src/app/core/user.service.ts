@@ -5,6 +5,7 @@ import { map, tap, catchError } from 'rxjs/operators';
 
 import { AppConstants } from './app.constants';
 import { JWTService } from './jwt.service';
+import { Router } from '@angular/router';
 
 @Injectable({
     providedIn: 'root',
@@ -22,7 +23,8 @@ export class UserService {
         private JWT: JWTService,
         private appConstants: AppConstants,
         private httpClient: HttpClient,
-        @Inject('$state') private $state: any
+        private router: Router,
+        @Inject('reloadPage') private reloadPage: Function
     ) { }
 
     attemptAuth(type: string, credentials) {
@@ -50,7 +52,7 @@ export class UserService {
     logout(): void {
         this._current.next(null);
         this.JWT.destroy();
-        this.$state.go(this.$state.$current, null, { reload: true });
+        this.reloadPage();
     }
 
     verifyAuth(): Promise<boolean> {
@@ -83,7 +85,7 @@ export class UserService {
         return this.verifyAuth()
             .then((authValid) => {
                 if (authValid !== bool) {
-                    this.$state.go('app.home');
+                    this.router.navigate(['/']);
                     return false;
                 } else {
                     return true;

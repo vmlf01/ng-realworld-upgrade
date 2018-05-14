@@ -1,6 +1,7 @@
 import { Component, Input, Inject } from '@angular/core';
 import { UserService } from '../../core/user.service';
 import { ArticlesService } from '../../services/articles.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'rw-favorite-btn',
@@ -14,14 +15,14 @@ export class FavoriteBtnComponent {
   constructor(
     private User: UserService,
     private Articles: ArticlesService,
-    @Inject('$state') private $state: any
+    private router: Router
   ) { }
 
   submit() {
     this.isSubmitting = true;
 
     if (!this.User.current) {
-      this.$state.go('app.register');
+      this.router.navigate(['/register']);
       return;
     }
 

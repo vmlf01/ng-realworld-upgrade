@@ -1,14 +1,16 @@
 <div class="article-preview">
   <rw-article-meta [article]="article">
-    <!-- <rw-favorite-btn
+    <rw-favorite-btn
       [article]="article"
       class="pull-xs-right">
       {{ article.favoritesCount }}
-    </rw-favorite-btn> -->
+    </rw-favorite-btn>
   </rw-article-meta>
 
-  <!-- <a ui-sref="app.article({ slug: $ctrl.article.slug })" class="preview-link"> -->
-  <a class="preview-link">
+  <a
+    class="preview-link"
+    [routerLink]="['/article', article.slug]"
+  >
     <h1>{{ article.title }}</h1>
     <p>{{ article.description }}</p>
     <span>Read more...</span>

@@ -1,6 +1,7 @@
 import { Component, Input, Inject } from '@angular/core';
 import { ProfileService } from '../../services/profile.service';
 import { UserService } from '../../core/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'rw-follow-btn',
@@ -14,14 +15,14 @@ export class FollowBtnComponent {
   constructor(
     private Profile: ProfileService,
     private User: UserService,
-    @Inject('$state') private $state: any
+    private router: Router
   ) { }
 
   submit() {
     this.isSubmitting = true;
 
     if (!this.User.current) {
-      this.$state.go('app.register');
+      this.router.navigate(['/register']);
       return;
     }
 

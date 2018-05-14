@@ -23,13 +23,11 @@ function injectorFactory(name) {
 
 export const $rootScopeFactory = injectorFactory('$rootScope');
 export const $scopeFactory = ($injector) => $injector.get('$rootScope').$new();
-export const $stateFactory = injectorFactory('$state');
 
 // Upgraded injectables AngularJS -> Angular
 export const UpgradedAppProviders = [
   { provide: '$rootScope', useFactory: $rootScopeFactory, deps: ['$injector'] },
   { provide: '$scope', useFactory: $scopeFactory, deps: ['$injector'] },
-  { provide: '$state', useFactory: $stateFactory, deps: ['$injector'] },
 ];
 
 // Downgraded injectables Angular -> AngularJS

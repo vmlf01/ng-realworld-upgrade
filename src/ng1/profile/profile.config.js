@@ -4,7 +4,7 @@ function ProfileConfig($stateProvider) {
   $stateProvider
   .state('app.profile', {
     abstract: true,
-    url: '/@:username',
+    url: '/profile/:username',
     controller: 'ProfileCtrl',
     controllerAs: '$ctrl',
     templateUrl: 'profile/profile.html',

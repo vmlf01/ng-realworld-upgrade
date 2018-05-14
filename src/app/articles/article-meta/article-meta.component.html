@@ -1,12 +1,11 @@
 <div class="article-meta">
-  <!-- <a ui-sref="app.profile.main({ username:$ctrl.article.author.username })"> -->
-  <a>
+  <a [routerLink]="['profile', article.author.username]">
     <img [src]="article.author.image" />
   </a>
 
   <div class="info">
-    <!-- ui-sref="app.profile.main({ username:$ctrl.article.author.username })" -->
     <a
+      [routerLink]="['profile', article.author.username]"
       class="author"
     >
       {{ article.author.username }}

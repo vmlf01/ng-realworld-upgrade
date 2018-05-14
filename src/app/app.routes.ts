@@ -1,7 +1,11 @@
 import { Routes, UrlHandlingStrategy } from '@angular/router';
 import { HomeComponent } from './home/home.component';
+import { EmptyComponent } from './empty/empty.component';
 
 export const appRoutes: Routes = [
+    { path: 'article/:slug', component: EmptyComponent },
+    { path: 'register', component: EmptyComponent },
+    { path: 'profile/:username', component: EmptyComponent },
     { path: '', pathMatch: 'full', component: HomeComponent },
 ];
 
@@ -11,7 +15,11 @@ export class NgUpgradeHandlingStrategy implements UrlHandlingStrategy {
         // NOTE:
         // return true to let Angular router handle url
         // return false to let ng1 router handle url
-        return url.toString() === '/';
+        const shouldProcess = url.toString() === '/'
+            || url.toString().startsWith('/article')
+            || url.toString().startsWith('/register')
+            || url.toString().startsWith('/profile');
+        return shouldProcess;
     }
 
     extract(url) {

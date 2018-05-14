@@ -19,6 +19,7 @@ import { LocalStorageService } from './local-storage.service';
         { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
         { provide: 'localStorage', useValue: window.localStorage },
         { provide: StorageService, useClass: LocalStorageService },
+        { provide: 'reloadPage', useValue: () => window.location.reload() },
         // AppConstants,
         JWTService,
         UserService,
